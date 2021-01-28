@@ -1,0 +1,149 @@
+{
+    "name": "yiisoft/demo-api",
+    "type": "project",
+    "description": "Yii Framework API Demo Project",
+    "keywords": [
+        "yii3",
+        "demo",
+        "api",
+        "rest"
+    ],
+    "homepage": "https://github.com/yiisoft/demo-api/",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/demo-api/issues?state=open",
+        "forum": "https://www.yiiframework.com/forum/",
+        "wiki": "https://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/demo-api"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.4|^8.0",
+        "cebe/markdown": "^1.2@dev",
+        "cycle/orm": "^1.2",
+        "cycle/proxy-factory": "^1.2",
+        "httpsoft/http-message": "^1.0.5",
+        "myclabs/php-enum": "^1.7",
+        "psr/container": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.0",
+        "psr/http-server-handler": "^1.0",
+        "psr/http-server-middleware": "^1.0",
+        "psr/log": "^1.1",
+        "yiisoft/access": "^1.0",
+        "yiisoft/aliases": "^1.0",
+        "yiisoft/arrays": "^3.0@dev",
+        "yiisoft/auth": "^3.0",
+        "yiisoft/cache": "^3.0@dev",
+        "yiisoft/cache-file": "^3.0@dev",
+        "yiisoft/composer-config-plugin": "^1.0@dev",
+        "yiisoft/data": "^3.0@dev",
+        "yiisoft/data-response": "^3.0@dev",
+        "yiisoft/di": "^3.0@dev",
+        "yiisoft/error-handler": "^3.0@dev",
+        "yiisoft/factory": "^3.0@dev",
+        "yiisoft/files": "@dev",
+        "yiisoft/http": "^1.0@dev",
+        "yiisoft/injector": "^1.0",
+        "yiisoft/json": "^1.0",
+        "yiisoft/log": "^3.0@dev",
+        "yiisoft/log-target-file": "^3.0@dev",
+        "yiisoft/request-body-parser": "^3.0@dev",
+        "yiisoft/request-model": "^1.0@dev",
+        "yiisoft/router": "^3.0@dev",
+        "yiisoft/router-fastroute": "^3.0@dev",
+        "yiisoft/security": "^1.0",
+        "yiisoft/serializer": "^3.0@dev",
+        "yiisoft/strings": "^1.0",
+        "yiisoft/user": "^3.0@dev",
+        "yiisoft/validator": "^3.0@dev",
+        "yiisoft/var-dumper": "^3.0@dev",
+        "yiisoft/yii-console": "^3.0@dev",
+        "yiisoft/yii-cycle": "^3.0@dev",
+        "yiisoft/yii-debug": "^3.0@dev",
+        "yiisoft/yii-event": "^3.0@dev",
+        "yiisoft/yii-swagger": "^3.0@dev",
+        "yiisoft/yii-web": "^3.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/",
+            "App\\Tests\\Acceptance\\": "tests/acceptance/"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "App\\Installer::postUpdate"
+        ],
+        "test": "phpunit --testdox --no-interaction",
+        "test-watch": "phpunit-watcher watch"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "config-plugin-output-dir": "runtime/build/config",
+        "config-plugin": {
+            "common": "config/common/*.php",
+            "params": [
+                "config/params.php",
+                "?config/params-local.php"
+            ],
+            "web": [
+                "$common",
+                "config/web/*.php"
+            ],
+            "console": [
+                "$common",
+                "config/console/*.php"
+            ],
+            "events": "config/events.php",
+            "events-web": [
+                "$events",
+                "config/events-web.php"
+            ],
+            "events-console": [
+                "$events",
+                "config/events-console.php"
+            ],
+            "providers": "config/providers.php",
+            "providers-web": [
+                "$providers",
+                "config/providers-web.php"
+            ],
+            "providers-console": [
+                "$providers",
+                "config/providers-console.php"
+            ],
+            "routes": "config/routes.php"
+        },
+        "config-plugin-alternatives": {
+            "tests": {
+                "params": "config/params-test.php"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "require-dev": {
+        "codeception/c3": "^2.6.0",
+        "codeception/codeception": "^4.1",
+        "codeception/lib-innerbrowser": "^1.3",
+        "codeception/module-asserts": "^1.0.0",
+        "codeception/module-db": "^1.0",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "codeception/module-rest": "^1.2",
+        "phpunit/phpunit": "^9.4",
+        "roave/infection-static-analysis-plugin": "^1.5",
+        "spatie/phpunit-watcher": "^1.23",
+        "vimeo/psalm": "^4.2"
+    }
+}
