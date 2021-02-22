@@ -7,7 +7,6 @@ namespace App\User;
 use App\Exception\BadRequestException;
 use Yiisoft\Auth\IdentityInterface;
 use Yiisoft\Auth\IdentityRepositoryInterface;
-use App\User\User as UserEntity;
 use Yiisoft\User\CurrentIdentity\CurrentIdentity;
 
 final class UserService
@@ -47,7 +46,7 @@ final class UserService
         return $identity;
     }
 
-    public function logout(UserEntity $user): void
+    public function logout(User $user): void
     {
         $user->resetToken();
         $this->identityRepository->save($user);
