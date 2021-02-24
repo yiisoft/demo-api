@@ -26,11 +26,11 @@ build:
                     - composer self-update
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
-            tests:
-                override:
-                    -
-                        command: php -S 127.0.0.1:8080 -t public public/index-test.php > ./runtime/yii.log 2>&1 & vendor/bin/codecept run acceptance --coverage-xml --env github-ci
-                        on_node: 1
-                        coverage:
-                            file: tests/_output/coverage.xml
-                            format: php-clover
+        tests:
+            override:
+                -
+                    command: php -S 127.0.0.1:8080 -t public public/index-test.php > ./runtime/yii.log 2>&1 & vendor/bin/codecept run acceptance --coverage-xml --env github-ci
+                    on_node: 1
+                    coverage:
+                        file: tests/_output/coverage.xml
+                        format: php-clover
