@@ -1,13 +1,15 @@
 version: '3'
 
 services:
-    yii-php:
+    php:
+        container_name: yii-php
         image: yiisoftware/yii-php:7.4-fpm
         working_dir: /app
         volumes:
             - ./:/app
-    yii-nginx:
+    nginx:
         image: nginx:alpine
+        container_name: yii-nginx
         ports:
             - 8080:80
             - 8081:81
@@ -15,4 +17,5 @@ services:
             - ./:/app
             - ./data/nginx/:/etc/nginx/conf.d/
         depends_on:
-            - yii-php
+            - php
+        restart: always
