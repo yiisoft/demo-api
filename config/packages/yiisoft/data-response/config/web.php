@@ -13,7 +13,7 @@ use Yiisoft\DataResponse\Middleware\ContentNegotiator;
 /* @var $params array */
 
 return [
-    DataResponseFormatterInterface::class => HtmlDataResponseFormatter::class,
+    DataResponseFormatterInterface::class => DataResponseFormatterInterface::class,
     DataResponseFactoryInterface::class => DataResponseFactory::class,
     ContentNegotiator::class => [
         '__construct()' => [
