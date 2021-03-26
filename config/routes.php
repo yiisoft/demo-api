@@ -16,42 +16,49 @@ use Yiisoft\Swagger\Middleware\SwaggerUi;
 use App\Factory\RestGroupFactory;
 
 return [
-    Route::get('/', [InfoController::class, 'index'])
+    Route::get('/')
+        ->action([InfoController::class, 'index'])
         ->name('api/info'),
 
-    Route::get('/blog/', [BlogController::class, 'index'])
+    Route::get('/blog/')
+        ->action([BlogController::class, 'index'])
         ->name('blog/index'),
 
-    Route::get('/blog/{id:\d+}', [BlogController::class, 'view'])
+    Route::get('/blog/{id:\d+}')
+        ->action([BlogController::class, 'view'])
         ->name('blog/view'),
 
-    Route::post('/blog/', [BlogController::class, 'create'])
-        ->name('blog/create')
-        ->addMiddleware(Authentication::class),
+    Route::post('/blog/')
+        ->middleware(Authentication::class)
+        ->action([BlogController::class, 'create'])
+        ->name('blog/create'),
 
-    Route::put('/blog/{id:\d+}', [BlogController::class, 'update'])
-        ->name('blog/update')
-        ->addMiddleware(Authentication::class),
+    Route::put('/blog/{id:\d+}')
+        ->middleware(Authentication::class)
+        ->action([BlogController::class, 'update'])
+        ->name('blog/update'),
 
     RestGroupFactory::create('/users/', UserController::class)
-        ->addMiddleware(Authentication::class),
+        ->prependMiddleware(Authentication::class),
 
-    Route::post('/auth/', [AuthController::class, 'login'])
+    Route::post('/auth/')
+        ->action([AuthController::class, 'login'])
         ->name('auth'),
 
-    Route::post('/logout/', [AuthController::class, 'logout'])
-        ->name('logout')
-        ->addMiddleware(Authentication::class),
+    Route::post('/logout/')
+        ->middleware(Authentication::class)
+        ->action([AuthController::class, 'logout'])
+        ->name('logout'),
 
     // Swagger routes
-    Group::create(
-        '/docs',
-        [
+    Group::create('/docs')
+        ->routes(
             Route::get('')
-                ->addMiddleware(fn (SwaggerUi $swaggerUi) => $swaggerUi->withJsonUrl('/docs/openapi.json'))
-                ->addMiddleware(FormatDataResponseAsHtml::class),
+                ->middleware(FormatDataResponseAsHtml::class)
+                ->action(fn (SwaggerUi $swaggerUi) => $swaggerUi->withJsonUrl('/docs/openapi.json')),
             Route::get('/openapi.json')
-                ->addMiddleware(
+                ->middleware(FormatDataResponseAsJson::class)
+                ->action(
                     static function (SwaggerJson $swaggerJson) {
                         return $swaggerJson
                             // Uncomment cache for production environment
@@ -62,8 +69,6 @@ return [
                                 ]
                             );
                     }
-                )
-                ->addMiddleware(FormatDataResponseAsJson::class),
-        ]
-    ),
+                ),
+        ),
 ];
