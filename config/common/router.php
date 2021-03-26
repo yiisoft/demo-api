@@ -16,8 +16,8 @@ use Yiisoft\Router\RouteCollectorInterface;
 return [
     RouteCollectionInterface::class => static function (RouteCollectorInterface $collector) use ($config) {
         $collector
-            ->middleware(ExceptionMiddleware::class)
             ->middleware(FormatDataResponse::class)
+            ->middleware(ExceptionMiddleware::class)
             ->middleware(RequestBodyParser::class)
             ->addGroup(Group::create()->routes(...$config->get('routes')));
 
