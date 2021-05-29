@@ -45,19 +45,19 @@ final class EditPostRequest extends RequestModel implements ValidatableModelInte
     {
         return [
             'body.title' => [
-                new Required(),
-                (new HasLength())
+                Required::rule(),
+                HasLength::rule()
                     ->min(5)
                     ->max(255),
             ],
             'body.text' => [
-                new Required(),
-                (new HasLength())
+                Required::rule(),
+                HasLength::rule()
                     ->min(5)
                     ->max(1000),
             ],
             'body.status' => [
-                new Required(),
+                Required::rule(),
                 static function ($value): Result {
                     $result = new Result();
                     if (!PostStatus::isValid($value)) {
