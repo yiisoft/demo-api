@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Blog\PostBuilder;
-use App\Blog\PostFormatter;
-use App\Blog\PostRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
