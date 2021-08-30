@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use App\NotFoundHandler;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
+use Yiisoft\Definitions\Reference;
+use Yiisoft\Definitions\DynamicReference;
 use Yiisoft\Injector\Injector;
 use Yiisoft\Middleware\Dispatcher\MiddlewareDispatcher;
 use Yiisoft\Router\Middleware\Router;
 use Yiisoft\Yii\Web\Middleware\SubFolder;
-use Yiisoft\Factory\Definition\Reference;
-use Yiisoft\Factory\Definition\DynamicReference;
 
 return [
     Yiisoft\Yii\Web\Application::class => [
