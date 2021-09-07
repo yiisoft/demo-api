@@ -59,7 +59,8 @@ final class ApplicationRunner
             $config->get('web'),
             $config->get('providers'),
             [],
-            $this->debug
+            $this->debug,
+            $config->get('delegates-web')
         );
 
         // Register error handler with real container-configured dependencies.
