@@ -87,6 +87,26 @@ return [
                 'console.php',
             ],
         ],
+        'delegates' => [
+            '/' => [
+                'config/delegates.php',
+            ],
+            'yiisoft/yii-cycle' => [
+                'delegates.php',
+            ],
+        ],
+        'delegates-console' => [
+            '/' => [
+                '$delegates',
+                'config/delegates-console.php',
+            ],
+        ],
+        'delegates-web' => [
+            '/' => [
+                '$delegates',
+                'config/delegates-web.php',
+            ],
+        ],
         'events' => [
             '/' => [
                 'config/events.php',
@@ -171,6 +191,9 @@ return [
             'yiisoft/yii-view' => [
                 'params.php',
             ],
+            'yiisoft/data-response' => [
+                'params.php',
+            ],
             'yiisoft/session' => [
                 'params.php',
             ],
@@ -191,9 +214,6 @@ return [
             'yiisoft/yii-debug' => [
                 'providers.php',
             ],
-            'yiisoft/yii-filesystem' => [
-                'providers.php',
-            ],
         ],
         'providers-console' => [
             '/' => [
@@ -208,9 +228,6 @@ return [
             '/' => [
                 '$providers',
                 'config/providers-web.php',
-            ],
-            'yiisoft/yii-cycle' => [
-                'providers-web.php',
             ],
         ],
         'routes' => [
