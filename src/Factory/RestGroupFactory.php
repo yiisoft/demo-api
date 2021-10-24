@@ -21,7 +21,6 @@ final class RestGroupFactory
         'put' => Method::PUT,
         'delete' => Method::DELETE,
         'patch' => Method::PATCH,
-        'head' => Method::HEAD,
         'options' => Method::OPTIONS,
     ];
 
