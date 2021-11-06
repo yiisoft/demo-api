@@ -4,13 +4,21 @@ declare(strict_types=1);
 
 use Cycle\Schema\Generator;
 use Spiral\Database\Driver\SQLite\SQLiteDriver;
+use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
+use Yiisoft\Router\Middleware\Router;
 use Yiisoft\Yii\Cycle\Command\Schema;
 use Yiisoft\Yii\Cycle\Command\Migration;
 use Yiisoft\Yii\Cycle\Schema\Provider\FromConveyorSchemaProvider;
 use Yiisoft\Yii\Cycle\Schema\SchemaProviderInterface;
+use Yiisoft\Yii\Web\Middleware\SubFolder;
 
 return [
     'supportEmail' => 'support@example.com',
+    'middlewares' => [
+        ErrorCatcher::class,
+        SubFolder::class,
+        Router::class,
+    ],
 
     'yiisoft/aliases' => [
         'aliases' => [
