@@ -6,10 +6,10 @@ namespace App\User;
 
 use App\Exception\NotFoundException;
 use App\RestControllerTrait;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Yiisoft\DataResponse\DataResponseFactoryInterface;
 use OpenApi\Annotations as OA;
+use Psr\Http\Message\ResponseInterface;
+use Yiisoft\DataResponse\DataResponseFactoryInterface;
+use Yiisoft\Router\CurrentRouteInterface;
 
 /**
  * @OA\Tag(
@@ -114,12 +114,12 @@ final class UserController
      *    ),
      * )
      */
-    public function get(ServerRequestInterface $request): ResponseInterface
+    public function get(CurrentRouteInterface $currentRoute): ResponseInterface
     {
         /**
          * @var User $user
          */
-        $user = $this->userRepository->findByPK($request->getAttribute('id'));
+        $user = $this->userRepository->findByPK($currentRoute->getParameter('id'));
         if ($user === null) {
             throw new NotFoundException();
         }
