@@ -3,7 +3,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - REST:
-              url: http://yii-nginx:81
+              url: http://yii-nginx:80
               depends: PhpBrowser
         - Db:
               dsn: 'sqlite:tests/_data/database.db'
