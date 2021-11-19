@@ -119,7 +119,7 @@ final class UserController
         /**
          * @var User $user
          */
-        $user = $this->userRepository->findByPK($currentRoute->getParameter('id'));
+        $user = $this->userRepository->findByPK($currentRoute->getArgument('id'));
         if ($user === null) {
             throw new NotFoundException();
         }
