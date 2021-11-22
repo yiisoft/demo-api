@@ -23,7 +23,7 @@ final class EditPostRequest extends RequestModel implements ValidatableModelInte
 {
     public function getId(): int
     {
-        return (int)$this->getAttributeValue('attributes.id');
+        return (int)$this->getAttributeValue('router.id');
     }
 
     public function getTitle(): string
