@@ -64,9 +64,7 @@ return [
                             // Uncomment cache for production environment
                             // ->withCache(3600)
                             ->withAnnotationPaths(
-                                [
-                                    '@src', // Path to API controllers
-                                ]
+                                '@src', // Path to API controllers
                             );
                     }
                 ),
