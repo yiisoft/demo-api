@@ -9,7 +9,7 @@ use App\RestControllerTrait;
 use OpenApi\Annotations as OA;
 use Psr\Http\Message\ResponseInterface;
 use Yiisoft\DataResponse\DataResponseFactoryInterface;
-use Yiisoft\Router\CurrentRouteInterface;
+use Yiisoft\Router\CurrentRoute;
 
 /**
  * @OA\Tag(
@@ -114,7 +114,7 @@ final class UserController
      *    ),
      * )
      */
-    public function get(CurrentRouteInterface $currentRoute): ResponseInterface
+    public function get(CurrentRoute $currentRoute): ResponseInterface
     {
         /**
          * @var User $user
