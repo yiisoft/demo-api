@@ -7,7 +7,6 @@ namespace App\Factory;
 use Yiisoft\Http\Method;
 use Yiisoft\Router\Group;
 use Yiisoft\Router\Route;
-use Yiisoft\Router\GroupInterface;
 use ReflectionClass;
 
 final class RestGroupFactory
@@ -24,7 +23,7 @@ final class RestGroupFactory
         'options' => Method::OPTIONS,
     ];
 
-    public static function create(string $prefix, string $controller): GroupInterface
+    public static function create(string $prefix, string $controller): Group
     {
         return Group::create($prefix)->routes(...self::createDefaultRoutes($controller));
     }
