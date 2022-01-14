@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Blog;
 
 use Yiisoft\RequestModel\RequestModel;
-use Yiisoft\RequestModel\ValidatableModelInterface;
 use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule\HasLength;
 use Yiisoft\Validator\Rule\Required;
 use OpenApi\Annotations as OA;
+use Yiisoft\Validator\RulesProviderInterface;
 
 /**
  * @OA\Schema(
@@ -19,7 +19,7 @@ use OpenApi\Annotations as OA;
  *      @OA\Property(example=1, property="status", format="int"),
  * )
  */
-final class EditPostRequest extends RequestModel implements ValidatableModelInterface
+final class EditPostRequest extends RequestModel implements RulesProviderInterface
 {
     public function getId(): int
     {
