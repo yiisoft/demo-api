@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Blog;
 
+use App\Exception\BadRequestException;
 use Yiisoft\RequestModel\RequestModel;
 use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule\HasLength;
@@ -38,7 +39,7 @@ final class EditPostRequest extends RequestModel implements RulesProviderInterfa
 
     public function getStatus(): PostStatus
     {
-        return new PostStatus($this->getAttributeValue('body.status'));
+        return PostStatus::from($this->getAttributeValue('body.status'));
     }
 
     public function getRules(): array
