@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Blog;
 
-use App\Exception\BadRequestException;
 use Yiisoft\RequestModel\RequestModel;
 use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule\HasLength;
