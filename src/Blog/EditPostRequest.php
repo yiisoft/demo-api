@@ -38,7 +38,7 @@ final class EditPostRequest extends RequestModel implements RulesProviderInterfa
 
     public function getStatus(): PostStatus
     {
-        return new PostStatus($this->getAttributeValue('body.status'));
+        return PostStatus::from($this->getAttributeValue('body.status'));
     }
 
     public function getRules(): array

@@ -58,7 +58,7 @@ final class BlogCest
             '/blog/',
             [
                 'title' => 'test title',
-                'status' => 100,
+                'status' => 0,
             ]
         );
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
@@ -76,7 +76,7 @@ final class BlogCest
             'post',
             [
                 'title' => 'test title',
-                'status' => 100,
+                'status' => 0,
             ]
         );
     }
