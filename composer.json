@@ -94,8 +94,7 @@
             "dev-master": "1.0.x-dev"
         },
         "config-plugin-options": {
-            "source-directory": "config",
-            "vendor-override-layer": "yiisoft/request-model"
+            "source-directory": "config"
         },
         "config-plugin": {
             "common": "common/*.php",
