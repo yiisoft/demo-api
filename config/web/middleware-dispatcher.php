@@ -10,5 +10,5 @@ use Yiisoft\RequestModel\MiddlewareFactory;
  */
 
 return [
-    MiddlewareFactoryInterface::class => MiddlewareFactory::class
+    MiddlewareFactoryInterface::class => MiddlewareFactory::class,
 ];
