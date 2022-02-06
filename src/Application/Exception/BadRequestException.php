@@ -6,7 +6,6 @@ namespace App\Application\Exception;
 
 use Exception;
 use Throwable;
-use Yiisoft\Http\Status;
 
 final class BadRequestException extends Exception implements ApplicationException
 {

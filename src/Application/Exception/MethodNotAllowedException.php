@@ -6,7 +6,6 @@ namespace App\Application\Exception;
 
 use LogicException;
 use Throwable;
-use Yiisoft\Http\Status;
 
 final class MethodNotAllowedException extends LogicException implements ApplicationException
 {
