@@ -58,7 +58,6 @@
         "yiisoft/validator": "^3.0@dev",
         "yiisoft/yii-console": "^1.0",
         "yiisoft/yii-cycle": "^3.0@dev",
-        "yiisoft/yii-debug": "^3.0@dev",
         "yiisoft/yii-event": "^1.0",
         "yiisoft/yii-http": "^1.0",
         "yiisoft/yii-middleware": "dev-master",
@@ -79,7 +78,10 @@
         "roave/infection-static-analysis-plugin": "^1.16",
         "spatie/phpunit-watcher": "^1.23",
         "vimeo/psalm": "^4.18",
-        "yiisoft/json": "^1.0"
+        "yiisoft/json": "^1.0",
+        "yiisoft/yii-debug": "3.0.x-dev",
+        "yiisoft/yii-debug-api": "3.0.x-dev",
+        "yiisoft/yii-debug-viewer": "3.0.x-dev"
     },
     "autoload": {
         "psr-4": {
