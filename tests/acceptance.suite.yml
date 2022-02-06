@@ -3,7 +3,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - REST:
-              url: http://yii-nginx:80
+              url: http://nginx:80
               depends: PhpBrowser
         - Db:
               dsn: 'sqlite:tests/_data/database.db'
@@ -14,6 +14,7 @@ modules:
               cleanup: true
         - App\Tests\Helper\Acceptance
     step_decorators: ~
+
 env:
     github-ci:
         modules:
