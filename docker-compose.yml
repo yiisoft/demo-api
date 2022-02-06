@@ -17,7 +17,7 @@ services:
       - 8080:80
     volumes:
       - ./public:/app/public
-      - ./deploy/nginx/default.conf:/etc/nginx/conf.d/
+      - ./deploy/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
     restart: unless-stopped
