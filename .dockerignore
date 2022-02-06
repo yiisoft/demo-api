@@ -1,0 +1,11 @@
+.idea/
+.git/
+.github/
+.gitlab/
+.gitignore
+.editorconfig
+.gitattributes
+.scrutinizer
+.styleci
+LICENSE.md
+README.md
