@@ -22,7 +22,7 @@ return [
     'logger.target.stdout' => [
         'class' => FileTarget::class,
         '__construct()' => [
-            "php://stdout"
+            'php://stdout',
         ],
     ],
 ];

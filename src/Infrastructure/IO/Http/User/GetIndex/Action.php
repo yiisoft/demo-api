@@ -49,11 +49,11 @@ final class Action
     public function __invoke(
         ResponseFactory $responseFactory,
         UserRepository $userRepository,
-        LoggerInterface$logger
+        LoggerInterface $logger
     ): ResponseInterface {
         $dataReader = $userRepository->findAllOrderByLogin();
 
-        $logger->debug("Collected {count} users", ['count' => count($dataReader->read())]);
+        $logger->debug('Collected {count} users', ['count' => count($dataReader->read())]);
 
         return $responseFactory->create($dataReader);
     }
