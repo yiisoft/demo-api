@@ -14,7 +14,7 @@ final class AuthCest
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST(
-            '/auth/',
+            '/auth/login',
             [
                 'login' => 'Opal1144',
                 'password' => 'Opal1144',
@@ -48,7 +48,7 @@ final class AuthCest
         );
 
         $I->sendPOST(
-            '/logout/'
+            '/auth/logout'
         );
 
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -83,7 +83,7 @@ final class AuthCest
         );
 
         $I->sendPOST(
-            '/logout/'
+            '/auth/logout'
         );
 
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);

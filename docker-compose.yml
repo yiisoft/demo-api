@@ -14,7 +14,7 @@ services:
       - 8080:80
       - 8081:81
     volumes:
-      - ./:/app
+      - ./public:/app/public
       - ./data/nginx/:/etc/nginx/conf.d/
     depends_on:
       - php
