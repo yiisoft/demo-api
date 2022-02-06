@@ -8,6 +8,7 @@ use App\Application\User\Entity\UserRepository;
 use App\Infrastructure\IO\Http\User\GetIndex\Response\ResponseFactory;
 use OpenApi\Annotations as OA;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @OA\Tag(
@@ -48,8 +49,11 @@ final class Action
     public function __invoke(
         ResponseFactory $responseFactory,
         UserRepository $userRepository,
+        LoggerInterface$logger
     ): ResponseInterface {
         $dataReader = $userRepository->findAllOrderByLogin();
+
+        $logger->debug("Collected {count} users", ['count' => count($dataReader->read())]);
 
         return $responseFactory->create($dataReader);
     }
