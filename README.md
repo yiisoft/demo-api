@@ -18,20 +18,26 @@ API Demo application for Yii 3.
 
 Install docker:
 
-```
+```bash
 docker-compose up -d
 ```
 
 Enter into the container:
 
-```
+```bash
 docker exec -it yii-php bash
 ```
 
 Install packages:
 
-```
+```bash
 composer install
+```
+
+Change ownership of the app directory to web group:
+
+```bash
+chown -R :www-data .
 ```
 
 Usually the application is available at http://localhost:8080.
