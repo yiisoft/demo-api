@@ -53,7 +53,7 @@ final class Action
     ): ResponseInterface {
         $dataReader = $userRepository->findAllOrderByLogin();
 
-        $logger->debug('Collected {count} users', ['count' => count($dataReader->read())]);
+        $logger->debug('Collected {count} users', ['count' => $dataReader->count()]);
 
         return $responseFactory->create($dataReader);
     }
