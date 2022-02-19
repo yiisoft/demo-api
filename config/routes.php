@@ -17,12 +17,10 @@ return [
         ->name('api/info'),
 
     Route::get('/blog/')
-        ->middleware(Authentication::class)
         ->action([Http\Blog\GetIndex\Action::class, '__invoke'])
         ->name('blog/index'),
 
     Route::get('/blog/{id:\d+}')
-        ->middleware(Authentication::class)
         ->action([Http\Blog\GetView\Action::class, '__invoke'])
         ->name('blog/view'),
 
