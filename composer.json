@@ -50,7 +50,7 @@
         "yiisoft/log": "^1.0",
         "yiisoft/log-target-file": "^1.0",
         "yiisoft/request-body-parser": "^1.0",
-        "yiisoft/request-model": "^1.0@dev",
+        "yiisoft/request-model": "dev-master",
         "yiisoft/router": "^1.0",
         "yiisoft/router-fastroute": "^1.0",
         "yiisoft/security": "^1.0",
