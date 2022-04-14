@@ -7,6 +7,7 @@ namespace App\Auth;
 use Yiisoft\RequestModel\RequestModel;
 use Yiisoft\Validator\Rule\Required\Required;
 use Yiisoft\Validator\RulesProviderInterface;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
@@ -37,5 +38,10 @@ final class AuthRequest extends RequestModel implements RulesProviderInterface
                 new Required(),
             ],
         ];
+    }
+
+    public function getData(): mixed
+    {
+        // TODO: Implement getData() method.
     }
 }
