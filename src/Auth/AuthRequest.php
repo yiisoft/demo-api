@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Auth;
 
 use Yiisoft\RequestModel\RequestModel;
-use Yiisoft\Validator\Rule\Required;
-use OpenApi\Annotations as OA;
+use Yiisoft\Validator\Rule\Required\Required;
 use Yiisoft\Validator\RulesProviderInterface;
 
 /**
@@ -32,10 +31,10 @@ final class AuthRequest extends RequestModel implements RulesProviderInterface
     {
         return [
             'body.login' => [
-                Required::rule(),
+                new Required(),
             ],
             'body.password' => [
-                Required::rule(),
+                new Required(),
             ],
         ];
     }
