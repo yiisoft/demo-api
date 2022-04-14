@@ -66,7 +66,7 @@ final class BlogCest
         $I->seeResponseContainsJson(
             [
                 'status' => 'failed',
-                'error_message' => 'Value cannot be blank.',
+                'error_message' => 'This value must be a string.',
                 'error_code' => 400,
                 'data' => null,
             ]
