@@ -39,9 +39,4 @@ final class AuthRequest extends RequestModel implements RulesProviderInterface
             ],
         ];
     }
-
-    public function getData(): mixed
-    {
-        // TODO: Implement getData() method.
-    }
 }
