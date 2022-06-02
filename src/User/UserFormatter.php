@@ -19,7 +19,9 @@ final class UserFormatter
     {
         return [
             'login' => $user->getLogin(),
-            'created_at' => $user->getCreatedAt()->format('d.m.Y H:i:s'),
+            'created_at' => $user
+                ->getCreatedAt()
+                ->format('d.m.Y H:i:s'),
         ];
     }
 }
