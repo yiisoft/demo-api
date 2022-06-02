@@ -22,7 +22,10 @@ final class PostRepository extends Select\Repository
     public function findAll(array $scope = [], array $orderBy = []): EntityReader
     {
         return new EntityReader(
-            $this->select()->where($scope)->orderBy($orderBy)
+            $this
+                ->select()
+                ->where($scope)
+                ->orderBy($orderBy)
         );
     }
 
