@@ -6,8 +6,8 @@ namespace App\Blog;
 
 use Yiisoft\RequestModel\RequestModel;
 use Yiisoft\Validator\Result;
-use Yiisoft\Validator\Rule\HasLength\HasLength;
-use Yiisoft\Validator\Rule\Required\Required;
+use Yiisoft\Validator\Rule\HasLength;
+use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\RulesProviderInterface;
 use OpenApi\Annotations as OA;
 

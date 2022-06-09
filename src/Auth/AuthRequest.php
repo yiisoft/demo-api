@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Auth;
 
 use Yiisoft\RequestModel\RequestModel;
-use Yiisoft\Validator\Rule\Required\Required;
+use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\RulesProviderInterface;
 use OpenApi\Annotations as OA;
 
