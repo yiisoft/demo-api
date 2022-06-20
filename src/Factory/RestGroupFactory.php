@@ -36,6 +36,9 @@ final class RestGroupFactory
             if ($reflection->hasMethod($methodName)) {
                 $pattern = $methodName === 'list' ? '' : self::ENTITY_PATTERN;
                 $routes[] = Route::methods([$httpMethod], $pattern)->action([$controller, $methodName]);
+                if ($methodName === 'options') {
+                    $routes[] = Route::methods([$httpMethod], '')->action([$controller, $methodName]);
+                }
             }
         }
 
