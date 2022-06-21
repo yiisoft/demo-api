@@ -38,6 +38,9 @@ final class RestGroupFactory
                 $routes[] = Route::methods([$httpMethod], $pattern)->action([$controller, $methodName]);
             }
         }
+        if ($reflection->hasMethod('options')) {
+            $routes[] = Route::methods([Method::OPTIONS], '')->action([$controller, 'options']);
+        }
 
         return $routes;
     }
