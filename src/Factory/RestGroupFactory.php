@@ -34,7 +34,7 @@ final class RestGroupFactory
         $reflection = new ReflectionClass($controller);
         foreach (self::METHODS as $methodName => $httpMethod) {
             if ($reflection->hasMethod($methodName)) {
-                $pattern = ($methodName === 'list' || $methodName === 'post' ) ? '' : self::ENTITY_PATTERN;
+                $pattern = ($methodName === 'list' || $methodName === 'post') ? '' : self::ENTITY_PATTERN;
                 $routes[] = Route::methods([$httpMethod], $pattern)->action([$controller, $methodName]);
             }
         }
