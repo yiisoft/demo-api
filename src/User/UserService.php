@@ -5,26 +5,38 @@ declare(strict_types=1);
 namespace App\User;
 
 use App\Exception\BadRequestException;
+use App\Queue\LoggingAuthorizationHandler;
 use Yiisoft\Auth\IdentityInterface;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 use Yiisoft\User\CurrentUser;
+use Yiisoft\Yii\Queue\Message\Message as QueueMessage;
+use Yiisoft\Yii\Queue\QueueFactoryInterface;
+use Yiisoft\Definitions\Exception\InvalidConfigException;
 
 final class UserService
 {
     private IdentityRepositoryInterface $identityRepository;
     private CurrentUser $currentUser;
+    private QueueFactoryInterface $queueFactory;
 
-    public function __construct(CurrentUser $currentUser, IdentityRepositoryInterface $identityRepository)
-    {
+    public function __construct(
+        CurrentUser $currentUser,
+        IdentityRepositoryInterface $identityRepository,
+        QueueFactoryInterface $queueFactory
+    ) {
         $this->currentUser = $currentUser;
         $this->identityRepository = $identityRepository;
+        $this->queueFactory = $queueFactory;
     }
 
     /**
      * @param string $login
      * @param string $password
-     *
+     * 
+     * @return IdentityInterface
+     * 
      * @throws BadRequestException
+     * @throws InvalidConfigException
      */
     public function login(string $login, string $password): IdentityInterface
     {
@@ -43,6 +55,17 @@ final class UserService
 
         $identity->resetToken();
         $this->identityRepository->save($identity);
+
+        $queueMessage = new QueueMessage(
+            LoggingAuthorizationHandler::NAME,
+            [
+                'id' => $identity->getId(),
+                'time' => time(),
+            ]
+        );
+
+        $this->queueFactory->get(LoggingAuthorizationHandler::CHANNEL)->push($queueMessage);
+
         return $identity;
     }
 

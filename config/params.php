@@ -11,6 +11,8 @@ use Yiisoft\Yii\Cycle\Command\Migration;
 use Yiisoft\Yii\Cycle\Schema\Provider\FromConveyorSchemaProvider;
 use Yiisoft\Yii\Cycle\Schema\SchemaProviderInterface;
 use Yiisoft\Yii\Middleware\SubFolder;
+use App\Queue\LoggingAuthorizationHandler;
+use Yiisoft\Yii\Queue\Adapter\SynchronousAdapter;
 
 return [
     'supportEmail' => 'support@example.com',
@@ -127,6 +129,15 @@ return [
     'yiisoft/yii-swagger' => [
         'annotation-paths' => [
             '@src',
+        ],
+    ],
+
+    'yiisoft/yii-queue' => [
+        'handlers' => [
+            LoggingAuthorizationHandler::NAME => [LoggingAuthorizationHandler::class, 'handle'],
+        ],
+        'channel-definitions' => [
+            LoggingAuthorizationHandler::CHANNEL => SynchronousAdapter::class
         ],
     ],
 ];
