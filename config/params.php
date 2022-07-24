@@ -137,7 +137,7 @@ return [
             LoggingAuthorizationHandler::NAME => [LoggingAuthorizationHandler::class, 'handle'],
         ],
         'channel-definitions' => [
-            LoggingAuthorizationHandler::CHANNEL => SynchronousAdapter::class
+            LoggingAuthorizationHandler::CHANNEL => SynchronousAdapter::class,
         ],
     ],
 ];
