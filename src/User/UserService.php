@@ -6,10 +6,10 @@ namespace App\User;
 
 use App\Exception\BadRequestException;
 use App\Queue\LoggingAuthorizationHandler;
+use App\Queue\UserLoggedInMessage;
 use Yiisoft\Auth\IdentityInterface;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 use Yiisoft\User\CurrentUser;
-use Yiisoft\Yii\Queue\Message\Message as QueueMessage;
 use Yiisoft\Yii\Queue\QueueFactoryInterface;
 use Yiisoft\Definitions\Exception\InvalidConfigException;
 
@@ -33,10 +33,10 @@ final class UserService
      * @param string $login
      * @param string $password
      *
-     * @throws BadRequestException
+     * @return IdentityInterface
      * @throws InvalidConfigException
      *
-     * @return IdentityInterface
+     * @throws BadRequestException
      */
     public function login(string $login, string $password): IdentityInterface
     {
@@ -56,14 +56,7 @@ final class UserService
         $identity->resetToken();
         $this->identityRepository->save($identity);
 
-        $queueMessage = new QueueMessage(
-            LoggingAuthorizationHandler::NAME,
-            [
-                'id' => $identity->getId(),
-                'time' => time(),
-            ]
-        );
-
+        $queueMessage = new UserLoggedInMessage($identity->getId(), time());
         $this->queueFactory->get(LoggingAuthorizationHandler::CHANNEL)->push($queueMessage);
 
         return $identity;

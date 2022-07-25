@@ -12,11 +12,8 @@ final class LoggingAuthorizationHandler
     public const NAME = 'logging-authorization-handler';
     public const CHANNEL = 'logging-authorization-channel';
 
-    private LoggerInterface $logger;
-
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     public function handle(MessageInterface $message): void
