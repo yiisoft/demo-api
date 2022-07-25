@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Queue;
 
 use Psr\Log\LoggerInterface;
-use Yiisoft\Yii\Queue\Message\MessageInterface;
 
 final class LoggingAuthorizationHandler
 {
@@ -16,7 +15,7 @@ final class LoggingAuthorizationHandler
     {
     }
 
-    public function handle(MessageInterface $message): void
+    public function handle(UserLoggedInMessage $message): void
     {
         $this->logger->info('User is login', [
             'data' => $message->getData(),
