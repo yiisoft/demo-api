@@ -33,10 +33,10 @@ final class UserService
      * @param string $login
      * @param string $password
      *
-     * @return IdentityInterface
      * @throws InvalidConfigException
-     *
      * @throws BadRequestException
+     * 
+     * @return IdentityInterface
      */
     public function login(string $login, string $password): IdentityInterface
     {
