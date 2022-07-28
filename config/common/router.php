@@ -10,7 +10,6 @@ use Yiisoft\Router\Group;
 use Yiisoft\Router\RouteCollection;
 use Yiisoft\Router\RouteCollectionInterface;
 use Yiisoft\Router\RouteCollectorInterface;
-use Yiisoft\Yii\Debug\Viewer\Middleware\ToolbarMiddleware;
 
 /** @var Config $config */
 
@@ -20,7 +19,6 @@ return [
             ->middleware(FormatDataResponse::class)
             ->middleware(ExceptionMiddleware::class)
             ->middleware(RequestBodyParser::class)
-            ->middleware(ToolbarMiddleware::class)
             ->addGroup(Group::create()->routes(...$config->get('routes')));
 
         return new RouteCollection($collector);
