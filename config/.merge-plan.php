@@ -15,6 +15,12 @@ return [
             'yiisoft/yii-cycle' => [
                 'config/common.php',
             ],
+            'yiisoft/yii-queue' => [
+                'config/common.php',
+            ],
+            'yiisoft/yii-debug' => [
+                'config/common.php',
+            ],
             'yiisoft/log-target-file' => [
                 'config/common.php',
             ],
@@ -22,9 +28,6 @@ return [
                 'config/common.php',
             ],
             'yiisoft/router' => [
-                'config/common.php',
-            ],
-            'yiisoft/yii-debug' => [
                 'config/common.php',
             ],
             'yiisoft/profiler' => [
@@ -62,13 +65,13 @@ return [
             'yiisoft/yii-cycle' => [
                 'config/params.php',
             ],
+            'yiisoft/yii-queue' => [
+                'config/params.php',
+            ],
             'yiisoft/yii-swagger' => [
                 'config/params.php',
             ],
-            'yiisoft/yii-debug-api' => [
-                'config/params.php',
-            ],
-            'yiisoft/yii-debug-viewer' => [
+            'yiisoft/yii-debug' => [
                 'config/params.php',
             ],
             'yiisoft/log-target-file' => [
@@ -81,9 +84,6 @@ return [
                 'config/params.php',
             ],
             'yiisoft/yii-view' => [
-                'config/params.php',
-            ],
-            'yiisoft/yii-debug' => [
                 'config/params.php',
             ],
             'yiisoft/profiler' => [
@@ -119,10 +119,7 @@ return [
             'yiisoft/yii-swagger' => [
                 'config/web.php',
             ],
-            'yiisoft/yii-debug-api' => [
-                'config/web.php',
-            ],
-            'yiisoft/yii-debug-viewer' => [
+            'yiisoft/yii-debug' => [
                 'config/web.php',
             ],
             'yiisoft/error-handler' => [
@@ -135,9 +132,6 @@ return [
                 'config/web.php',
             ],
             'yiisoft/yii-view' => [
-                'config/web.php',
-            ],
-            'yiisoft/yii-debug' => [
                 'config/web.php',
             ],
             'yiisoft/data-response' => [
@@ -164,10 +158,10 @@ return [
             'yiisoft/yii-cycle' => [
                 'config/console.php',
             ],
-            'yiisoft/yii-console' => [
+            'yiisoft/yii-debug' => [
                 'config/console.php',
             ],
-            'yiisoft/yii-debug' => [
+            'yiisoft/yii-console' => [
                 'config/console.php',
             ],
             'yiisoft/yii-event' => [
@@ -182,13 +176,13 @@ return [
             'yiisoft/yii-cycle' => [
                 'config/events-console.php',
             ],
+            'yiisoft/yii-debug' => [
+                'config/events-console.php',
+            ],
             'yiisoft/log' => [
                 'config/events-console.php',
             ],
             'yiisoft/yii-console' => [
-                'config/events-console.php',
-            ],
-            'yiisoft/yii-debug' => [
                 'config/events-console.php',
             ],
             'yiisoft/yii-event' => [
@@ -208,31 +202,19 @@ return [
                 'delegates.php',
             ],
         ],
-        'routes' => [
-            'yiisoft/yii-debug-api' => [
-                'config/routes.php',
-            ],
-            'yiisoft/yii-debug-viewer' => [
-                'config/routes.php',
+        'providers' => [
+            'yiisoft/yii-debug' => [
+                'config/providers.php',
             ],
             '/' => [
-                'routes.php',
-            ],
-        ],
-        'providers-web' => [
-            'yiisoft/yii-debug-api' => [
-                'config/providers-web.php',
-            ],
-            '/' => [
-                '$providers',
-                'providers-web.php',
+                'providers.php',
             ],
         ],
         'events-web' => [
-            'yiisoft/log' => [
+            'yiisoft/yii-debug' => [
                 'config/events-web.php',
             ],
-            'yiisoft/yii-debug' => [
+            'yiisoft/log' => [
                 'config/events-web.php',
             ],
             'yiisoft/profiler' => [
@@ -256,20 +238,18 @@ return [
                 'providers-console.php',
             ],
         ],
-        'providers' => [
-            'yiisoft/yii-debug' => [
-                'config/providers.php',
-            ],
-            '/' => [
-                'providers.php',
-            ],
-        ],
         'events' => [
             'yiisoft/yii-event' => [
                 'config/events.php',
             ],
             '/' => [
                 'events.php',
+            ],
+        ],
+        'providers-web' => [
+            '/' => [
+                '$providers',
+                'providers-web.php',
             ],
         ],
         'delegates-web' => [
@@ -282,6 +262,11 @@ return [
             '/' => [
                 '$delegates',
                 'delegates-console.php',
+            ],
+        ],
+        'routes' => [
+            '/' => [
+                'routes.php',
             ],
         ],
         'bootstrap' => [
