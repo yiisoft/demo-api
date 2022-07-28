@@ -6,7 +6,6 @@ namespace App\Application\User\Service;
 
 use App\Application\Exception\BadRequestException;
 use App\Application\User\Entity\User;
-use App\Exception\BadRequestException;
 use App\Queue\LoggingAuthorizationHandler;
 use App\Queue\UserLoggedInMessage;
 use Yiisoft\Auth\IdentityInterface;
