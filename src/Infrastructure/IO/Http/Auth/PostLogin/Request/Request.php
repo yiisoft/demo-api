@@ -8,7 +8,6 @@ use OpenApi\Annotations as OA;
 use Yiisoft\RequestModel\RequestModel;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\RulesProviderInterface;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
