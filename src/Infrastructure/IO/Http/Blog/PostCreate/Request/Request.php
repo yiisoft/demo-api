@@ -26,17 +26,17 @@ final class Request extends RequestModel implements RulesProviderInterface
 {
     public function getId(): int
     {
-        return (int)$this->getAttributeValue('router.id');
+        return (int) $this->getAttributeValue('router.id');
     }
 
     public function getTitle(): string
     {
-        return (string)$this->getAttributeValue('body.title');
+        return (string) $this->getAttributeValue('body.title');
     }
 
     public function getText(): string
     {
-        return (string)$this->getAttributeValue('body.text');
+        return (string) $this->getAttributeValue('body.text');
     }
 
     public function getStatus(): PostStatus
@@ -56,19 +56,15 @@ final class Request extends RequestModel implements RulesProviderInterface
     {
         return [
             'body.title' => [
-                Required::rule(),
-                HasLength::rule()
-                    ->min(5)
-                    ->max(255),
+                new Required(),
+                new HasLength(min: 5, max: 255),
             ],
             'body.text' => [
-                Required::rule(),
-                HasLength::rule()
-                    ->min(5)
-                    ->max(1000),
+                new Required(),
+                new HasLength(min: 5, max: 1000),
             ],
             'body.status' => [
-                Required::rule(),
+                new Required(),
                 static function ($value): Result {
                     $result = new Result();
                     if (!PostStatus::isValid($value)) {
