@@ -11,6 +11,7 @@ use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule\HasLength;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\RulesProviderInterface;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
@@ -46,19 +47,15 @@ final class Request extends RequestModel implements RulesProviderInterface
     {
         return [
             'body.title' => [
-                Required::rule(),
-                HasLength::rule()
-                    ->min(5)
-                    ->max(255),
+                new Required(),
+                new HasLength(min: 5, max: 255),
             ],
             'body.text' => [
-                Required::rule(),
-                HasLength::rule()
-                    ->min(5)
-                    ->max(1000),
+                new Required(),
+                new HasLength(min: 5, max: 1000),
             ],
             'body.status' => [
-                Required::rule(),
+                new Required(),
                 static function ($value): Result {
                     $result = new Result();
                     if (!PostStatus::isValid($value)) {
