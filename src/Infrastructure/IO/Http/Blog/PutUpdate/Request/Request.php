@@ -11,7 +11,6 @@ use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule\HasLength;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\RulesProviderInterface;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
