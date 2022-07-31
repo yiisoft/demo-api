@@ -71,7 +71,7 @@ return [
             'connections' => [
                 'sqlite' => new \Cycle\Database\Config\SQLiteDriverConfig(
                     connection: new \Cycle\Database\Config\SQLite\FileConnectionConfig(
-                        database: 'runtime/database.db'
+                        database: dirname(__DIR__) . '/data/db/database.db'
                     )
                 ),
             ],
