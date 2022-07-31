@@ -6,7 +6,6 @@ namespace App\User;
 
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
-use Cycle\Annotated\Annotation\Table;
 use Cycle\Annotated\Annotation\Table\Index;
 use Cycle\ORM\Entity\Behavior\CreatedAt;
 use Cycle\ORM\Entity\Behavior\UpdatedAt;
