@@ -22,8 +22,10 @@
     "require": {
         "php": "^8.0",
         "cebe/markdown": "^1.2@dev",
-        "cycle/orm": "^1.2",
-        "cycle/proxy-factory": "^1.2",
+        "cycle/database": "^2.0",
+        "cycle/entity-behavior": "^1.0",
+        "cycle/orm": "^2.0",
+        "doctrine/collections": "^1.6",
         "httpsoft/http-message": "^1.0.5",
         "myclabs/php-enum": "^1.7",
         "psr/container": "^1.0|^2.0",
