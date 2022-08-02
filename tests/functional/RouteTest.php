@@ -5,12 +5,19 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
+use Yiisoft\Log\Logger;
 
 class RouteTest extends TestCase
 {
+    private static ?TestApplicationRunner $application = null;
+
     public function testRoute()
     {
+        self::$application = null;
+
         $method = 'GET';
         $url = '/';
 
@@ -28,15 +35,38 @@ class RouteTest extends TestCase
         );
     }
 
+    public function testContainer()
+    {
+        self::$application = null;
+        $container = $this->getContainer();
+
+        $this->assertInstanceOf(ContainerInterface::class, $container);
+        $this->assertTrue($container->has(LoggerInterface::class));
+    }
+
     private function doRequest(string $method, string $url): ?ResponseInterface
     {
-        $grabber = new ResponseGrabber();
-        $app = new TestApplicationRunner($grabber, dirname(__DIR__, 2), false, null);
+        $this->bootstrapApplication();
 
-        $app->withRequest($method, $url);
-        $app->run();
+        self::$application->withRequest($method, $url);
+        self::$application->run();
 
-        return $grabber->getResponse();
+        return self::$application->responseGrabber->getResponse();
+    }
+
+    private function getContainer(): ?ContainerInterface
+    {
+        $this->bootstrapApplication();
+        self::$application->preloadContainer();
+
+        return self::$application->container;
+    }
+
+    private function bootstrapApplication(): void
+    {
+        if (self::$application === null) {
+            self::$application = new TestApplicationRunner(new ResponseGrabber(), dirname(__DIR__, 2), false, null);
+        }
     }
 
 }

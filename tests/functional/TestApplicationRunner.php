@@ -6,6 +6,7 @@ namespace App\Tests\Functional;
 
 use ErrorException;
 use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,6 +28,7 @@ use function microtime;
 final class TestApplicationRunner extends ApplicationRunner
 {
     private array $requestParameters;
+    public ?ContainerInterface $container=null;
 
     /**
      * @param string $rootPath The absolute path to the project root.
@@ -34,7 +36,7 @@ final class TestApplicationRunner extends ApplicationRunner
      * @param string|null $environment The environment name.
      */
     public function __construct(
-        private ResponseGrabber $responseGrabber,
+        public ResponseGrabber $responseGrabber,
         string $rootPath,
         bool $debug,
         ?string $environment
@@ -52,42 +54,33 @@ final class TestApplicationRunner extends ApplicationRunner
      */
     public function run(): void
     {
-        require_once $this->rootPath . '/autoload.php';
-
-        $startTime = microtime(true);
-
-        $config = $this->getConfig();
-        $container = $this->getContainer($config, 'web');
-
-        $this->runBootstrap($config, $container);
-        $this->checkEvents($config, $container);
+        $this->preloadContainer();
 
         /** @var Application $application */
-        $application = $container->get(Application::class);
+        $application = $this->container->get(Application::class);
 
         /**
          * @var ServerRequestInterface
          * @psalm-suppress MixedMethodCall
          */
-        $serverRequest = $container
+        $serverRequest = $this->container
             ->get(ServerRequestFactory::class)
             ->createFromParameters(
                 ...$this->requestParameters,
             );
-        $request = $serverRequest->withAttribute('applicationStartTime', $startTime);
 
         try {
             $application->start();
-            $response = $application->handle($request);
+            $response = $application->handle($serverRequest);
         } catch (Throwable $throwable) {
             $handler = new ThrowableHandler($throwable);
             /**
              * @var ResponseInterface
              * @psalm-suppress MixedMethodCall
              */
-            $response = $container
+            $response = $this->container
                 ->get(ErrorCatcher::class)
-                ->process($request, $handler);
+                ->process($serverRequest, $handler);
         } finally {
             $application->afterEmit($response ?? null);
             $application->shutdown();
@@ -117,5 +110,17 @@ final class TestApplicationRunner extends ApplicationRunner
             'files' => $files,
             'body' => $body,
         ];
+    }
+
+    public function preloadContainer()
+    {
+        require_once $this->rootPath . '/autoload.php';
+
+        $config = $this->getConfig();
+        $this->container = $this->getContainer($config, 'web');
+
+        $this->runBootstrap($config, $this->container);
+        $this->checkEvents($config, $this->container);
+
     }
 }
