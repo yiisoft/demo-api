@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Yiisoft\Log\Logger;
 
 class RouteTest extends TestCase
 {
@@ -68,5 +67,4 @@ class RouteTest extends TestCase
             self::$application = new TestApplicationRunner(new ResponseGrabber(), dirname(__DIR__, 2), false, null);
         }
     }
-
 }

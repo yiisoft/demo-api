@@ -16,19 +16,16 @@ use Yiisoft\Definitions\Exception\InvalidConfigException;
 use Yiisoft\Definitions\Exception\NotInstantiableException;
 use Yiisoft\Di\NotFoundException;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
-use Yiisoft\Log\Target\File\FileTarget;
 use Yiisoft\Yii\Http\Application;
 use Yiisoft\Yii\Http\Handler\ThrowableHandler;
 use Yiisoft\Yii\Runner\ApplicationRunner;
 use Yiisoft\Yii\Runner\Http\Exception\HeadersHaveBeenSentException;
 use Yiisoft\Yii\Runner\Http\ServerRequestFactory;
 
-use function microtime;
-
 final class TestApplicationRunner extends ApplicationRunner
 {
     private array $requestParameters;
-    public ?ContainerInterface $container=null;
+    public ?ContainerInterface $container = null;
 
     /**
      * @param string $rootPath The absolute path to the project root.
@@ -121,6 +118,5 @@ final class TestApplicationRunner extends ApplicationRunner
 
         $this->runBootstrap($config, $this->container);
         $this->checkEvents($config, $this->container);
-
     }
 }
