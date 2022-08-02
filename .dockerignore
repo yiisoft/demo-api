@@ -1,0 +1,15 @@
+.idea/
+.git/
+.github/
+.gitlab/
+vendor/
+
+.gitignore
+.editorconfig
+.gitattributes
+.scrutinizer
+.styleci
+
+CHANGELOG.md
+LICENSE.md
+README.md

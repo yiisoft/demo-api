@@ -27,7 +27,7 @@ final class UserCest
                     'users' => [
                         [
                             'login' => 'Athena7928',
-                            'created_at' => '26.07.2020 20:18:11',
+                            'created_at' => '2020-07-26T20:18:11+00:00',
                         ],
                     ],
                 ],
@@ -52,7 +52,7 @@ final class UserCest
                 'data' => [
                     'user' => [
                         'login' => 'Opal1144',
-                        'created_at' => '26.07.2020 20:18:11',
+                        'created_at' => '2020-07-26T20:18:11+00:00',
                     ],
                 ],
             ]
@@ -73,25 +73,6 @@ final class UserCest
                 'status' => 'failed',
                 'error_message' => 'Entity not found',
                 'error_code' => HttpCode::NOT_FOUND,
-                'data' => null,
-            ]
-        );
-    }
-
-    public function notAllowedMethod(AcceptanceTester $I): void
-    {
-        $I->haveHttpHeader(
-            'X-Api-Key',
-            'lev1ZsWCzqrMlXRI2sT8h4ApYpSgBMl1xf6D4bCRtiKtDqw6JN36yLznargilQ_rEJz9zTfcUxm53PLODCToF9gGin38Rd4NkhQPOVeH5VvZvBaQlUg64E6icNCubiAv'
-        );
-        $I->sendPut('/users/1');
-        $I->seeResponseCodeIs(HttpCode::METHOD_NOT_ALLOWED);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'status' => 'failed',
-                'error_message' => 'Method is not implemented yet',
-                'error_code' => HttpCode::METHOD_NOT_ALLOWED,
                 'data' => null,
             ]
         );

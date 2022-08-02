@@ -5,8 +5,8 @@ declare(strict_types=1);
 use App\Queue\LoggingAuthorizationHandler;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
 use Yiisoft\Router\Middleware\Router;
-use Yiisoft\Yii\Cycle\Command\Migration;
 use Yiisoft\Yii\Cycle\Command\Schema;
+use Yiisoft\Yii\Cycle\Command\Migration;
 use Yiisoft\Yii\Cycle\Schema\Conveyor\AttributedSchemaConveyor;
 use Yiisoft\Yii\Cycle\Schema\SchemaProviderInterface;
 use Yiisoft\Yii\Middleware\SubFolder;
@@ -145,5 +145,11 @@ return [
         'channel-definitions' => [
             LoggingAuthorizationHandler::CHANNEL => SynchronousAdapter::class,
         ],
+    ],
+
+    'yiisoft/yii-debug-api' => [
+        'enabled' => true,
+        'allowedIPs' => ['127.0.0.1', '::1', '172.20.0.1'],
+        'allowedHosts' => [],
     ],
 ];
