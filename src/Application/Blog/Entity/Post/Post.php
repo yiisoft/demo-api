@@ -8,60 +8,35 @@ use App\Application\User\Entity\User;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
-use Cycle\Annotated\Annotation\Table;
-use Cycle\ORM\Promise\Reference;
 use DateTimeImmutable;
 use Yiisoft\Security\Random;
 
-/**
- * @Entity(
- *     repository="App\Application\Blog\Entity\Post\PostRepository",
- * )
- * @Table()
- */
+#[Entity(repository: PostRepository::class)]
 class Post
 {
-    /**
-     * @Column(type="primary")
-     */
+    #[Column(type: 'primary')]
     private ?int $id = null;
 
-    /**
-     * @Column(type="string(128)")
-     */
+    #[Column(type: 'string(128)')]
     private string $slug;
 
-    /**
-     * @Column(type="string(255)", default="")
-     */
+    #[Column(type: 'string(255)', default: '')]
     private string $title = '';
 
-    /**
-     * @Column(type="int(11)", default="0")
-     */
+    #[Column(type: 'int(11)', default: 0)]
     private int $status = 0;
 
-    /**
-     * @Column(type="text")
-     */
+    #[Column(type: 'string')]
     private string $content;
 
-    /**
-     * @Column(type="datetime")
-     */
+    #[Column(type: 'datetime')]
     private DateTimeImmutable $created_at;
 
-    /**
-     * @Column(type="datetime")
-     */
+    #[Column(type: 'datetime')]
     private DateTimeImmutable $updated_at;
 
-    /**
-     * @BelongsTo(target="App\Application\User\Entity\User", nullable=false)
-     *
-     * @var Reference|User
-     */
-    private $user = null;
+    #[BelongsTo(target: User::class, nullable: false)]
+    private ?User $user = null;
     private ?int $user_id = null;
 
     public function __construct()
@@ -126,9 +101,6 @@ class Post
         $this->user = $user;
     }
 
-    /**
-     * @return Reference|User
-     */
     public function getUser(): ?User
     {
         return $this->user;
