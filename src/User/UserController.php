@@ -9,6 +9,7 @@ use App\RestControllerTrait;
 use OpenApi\Annotations as OA;
 use Psr\Http\Message\ResponseInterface;
 use Yiisoft\DataResponse\DataResponseFactoryInterface;
+use Yiisoft\RequestModel\Attribute\RouteParam;
 use Yiisoft\Router\CurrentRoute;
 
 /**
@@ -114,12 +115,12 @@ final class UserController
      *    ),
      * )
      */
-    public function get(CurrentRoute $currentRoute): ResponseInterface
+    public function get(#[RouteParam('id')] int $id): ResponseInterface
     {
         /**
          * @var User $user
          */
-        $user = $this->userRepository->findByPK($currentRoute->getArgument('id'));
+        $user = $this->userRepository->findByPK($id);
         if ($user === null) {
             throw new NotFoundException();
         }
