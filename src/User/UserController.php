@@ -10,7 +10,6 @@ use OpenApi\Annotations as OA;
 use Psr\Http\Message\ResponseInterface;
 use Yiisoft\DataResponse\DataResponseFactoryInterface;
 use Yiisoft\RequestModel\Attribute\RouteParam;
-use Yiisoft\Router\CurrentRoute;
 
 /**
  * @OA\Tag(
