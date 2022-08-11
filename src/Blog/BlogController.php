@@ -9,8 +9,8 @@ use App\User\UserRequest;
 use Psr\Http\Message\ResponseInterface as Response;
 use Yiisoft\DataResponse\DataResponseFactoryInterface;
 use OpenApi\Annotations as OA;
-use Yiisoft\RequestModel\Attribute\QueryParam;
-use Yiisoft\RequestModel\Attribute\RouteParam;
+use Yiisoft\RequestModel\Attribute\Query;
+use Yiisoft\RequestModel\Attribute\Route;
 
 /**
  * @OA\Tag(
@@ -74,7 +74,7 @@ final class BlogController
      *    ),
      * )
      */
-    public function index(PaginatorFormatter $paginatorFormatter, #[QueryParam('page')] int $page): Response
+    public function index(PaginatorFormatter $paginatorFormatter, #[Query('page')] int $page): Response
     {
         $paginator = $this->blogService->getPosts($page);
         $posts = [];
@@ -137,7 +137,7 @@ final class BlogController
      *    ),
      * )
      */
-    public function view(#[RouteParam('id')] int $id): Response
+    public function view(#[Route('id')] int $id): Response
     {
         return $this->responseFactory->createResponse(
             [
@@ -210,7 +210,7 @@ final class BlogController
      *     )
      * )
      */
-    public function update(EditPostRequest $postRequest, #[RouteParam('id')] int $id): Response
+    public function update(EditPostRequest $postRequest, #[Route('id')] int $id): Response
     {
         $post = $this->postBuilder->build(
             $this->blogService->getPost($id),

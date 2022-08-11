@@ -9,7 +9,7 @@ use App\RestControllerTrait;
 use OpenApi\Annotations as OA;
 use Psr\Http\Message\ResponseInterface;
 use Yiisoft\DataResponse\DataResponseFactoryInterface;
-use Yiisoft\RequestModel\Attribute\RouteParam;
+use Yiisoft\RequestModel\Attribute\Route;
 
 /**
  * @OA\Tag(
@@ -114,7 +114,7 @@ final class UserController
      *    ),
      * )
      */
-    public function get(#[RouteParam('id')] int $id): ResponseInterface
+    public function get(#[Route('id')] int $id): ResponseInterface
     {
         /**
          * @var User $user
