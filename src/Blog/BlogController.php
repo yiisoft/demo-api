@@ -17,6 +17,15 @@ use Yiisoft\RequestModel\Attribute\Route;
  *     name="blog",
  *     description="Blog"
  * )
+ * @OA\Parameter(
+ *      @OA\Schema(
+ *          type="int",
+ *          example="2"
+ *      ),
+ *      in="query",
+ *      name="page",
+ *      parameter="PageRequest"
+ * )
  */
 final class BlogController
 {
@@ -74,7 +83,7 @@ final class BlogController
      *    ),
      * )
      */
-    public function index(PaginatorFormatter $paginatorFormatter, #[Query('page')] int $page): Response
+    public function index(PaginatorFormatter $paginatorFormatter, #[Query('page')] int $page = 1): Response
     {
         $paginator = $this->blogService->getPosts($page);
         $posts = [];
