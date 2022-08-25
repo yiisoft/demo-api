@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class UserControllerTest extends FunctionalTestCase
@@ -28,6 +27,7 @@ class UserControllerTest extends FunctionalTestCase
             $content
         );
     }
+
     public function testGet2()
     {
         $method = 'GET';
