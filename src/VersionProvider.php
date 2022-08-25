@@ -9,5 +9,4 @@ class VersionProvider
     public function __construct(public $version = '3.0')
     {
     }
-
 }

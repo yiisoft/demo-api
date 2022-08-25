@@ -19,7 +19,7 @@ class TestContainer implements ContainerInterface
 
     public function get(string $id)
     {
-        return $this->instances[$id] ?? throw new class extends Exception implements NotFoundExceptionInterface{};
+        return $this->instances[$id] ?? throw new class () extends Exception implements NotFoundExceptionInterface {};
     }
 
     public function has(string $id): bool
