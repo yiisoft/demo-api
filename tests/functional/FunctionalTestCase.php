@@ -31,7 +31,7 @@ abstract class FunctionalTestCase extends TestCase
         }
     }
 
-    protected function doRequest(string $method, string $url): ?ResponseInterface
+    protected function doRequest(string $method, string $url): ResponseInterface
     {
         $this->ensureApplicationLoaded();
 
@@ -41,13 +41,20 @@ abstract class FunctionalTestCase extends TestCase
         return self::$application->responseGrabber->getResponse();
     }
 
-    protected function getContainer(): ?ContainerInterface
+    protected function getContainer(): ContainerInterface
     {
         $this->ensureApplicationLoaded();
 
         self::$application->preloadContainer();
 
         return self::$application->container;
+    }
+
+    protected function getTestContainer(): TestContainer
+    {
+        $this->ensureApplicationLoaded();
+
+        return self::$application->getTestContainer();
     }
 
     private function ensureApplicationLoaded(): void

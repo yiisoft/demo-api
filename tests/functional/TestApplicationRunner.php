@@ -11,9 +11,11 @@ use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
+use Yiisoft\Config\ConfigInterface;
 use Yiisoft\Definitions\Exception\CircularReferenceException;
 use Yiisoft\Definitions\Exception\InvalidConfigException;
 use Yiisoft\Definitions\Exception\NotInstantiableException;
+use Yiisoft\Di\CompositeContainer;
 use Yiisoft\Di\NotFoundException;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
 use Yiisoft\Yii\Http\Application;
@@ -26,6 +28,7 @@ final class TestApplicationRunner extends ApplicationRunner
 {
     private array $requestParameters;
     public ?ContainerInterface $container = null;
+    private TestContainer $testContainer;
 
     /**
      * @param string $rootPath The absolute path to the project root.
@@ -42,6 +45,7 @@ final class TestApplicationRunner extends ApplicationRunner
         parent::__construct($rootPath, $debug, $environment);
         $this->bootstrapGroup = 'bootstrap-web';
         $this->eventsGroup = 'events-web';
+        $this->testContainer = new TestContainer();
     }
 
     /**
@@ -119,5 +123,18 @@ final class TestApplicationRunner extends ApplicationRunner
 
         $this->runBootstrap($config, $this->container);
         $this->checkEvents($config, $this->container);
+    }
+
+    protected function getContainer(ConfigInterface $config, string $definitionEnvironment): ContainerInterface
+    {
+        $compositeContainer = new CompositeContainer();
+        $compositeContainer->attach($this->testContainer);
+        $compositeContainer->attach(parent::getContainer($config, $definitionEnvironment));
+        return $compositeContainer;
+    }
+
+    public function getTestContainer(): TestContainer
+    {
+        return $this->testContainer;
     }
 }

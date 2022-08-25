@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
+use App\InfoController;
+use App\VersionProvider;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -15,6 +17,10 @@ class UserControllerTest extends FunctionalTestCase
         $url = '/';
 
         $this->bootstrapApplication('web');
+
+        $container = $this->getTestContainer();
+        $container->set(VersionProvider::class, new VersionProvider('3.0.0'));
+
         $response = $this->doRequest($method, $url);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -24,7 +30,7 @@ class UserControllerTest extends FunctionalTestCase
         $content = $stream->getContents();
 
         $this->assertSame(
-            '{"status":"success","error_message":"","error_code":null,"data":{"version":"3.0","author":"yiisoft"}}',
+            '{"status":"success","error_message":"","error_code":null,"data":{"version":"3.0.0","author":"yiisoft"}}',
             $content
         );
     }
