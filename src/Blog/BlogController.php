@@ -9,11 +9,22 @@ use App\User\UserRequest;
 use Psr\Http\Message\ResponseInterface as Response;
 use Yiisoft\DataResponse\DataResponseFactoryInterface;
 use OpenApi\Annotations as OA;
+use Yiisoft\RequestModel\Attribute\Query;
+use Yiisoft\RequestModel\Attribute\Route;
 
 /**
  * @OA\Tag(
  *     name="blog",
  *     description="Blog"
+ * )
+ * @OA\Parameter(
+ *      @OA\Schema(
+ *          type="int",
+ *          example="2"
+ *      ),
+ *      in="query",
+ *      name="page",
+ *      parameter="PageRequest"
  * )
  */
 final class BlogController
@@ -72,9 +83,9 @@ final class BlogController
      *    ),
      * )
      */
-    public function index(PageRequest $request, PaginatorFormatter $paginatorFormatter): Response
+    public function index(PaginatorFormatter $paginatorFormatter, #[Query('page')] int $page = 1): Response
     {
-        $paginator = $this->blogService->getPosts($request->getPage());
+        $paginator = $this->blogService->getPosts($page);
         $posts = [];
         foreach ($paginator->read() as $post) {
             $posts[] = $this->postFormatter->format($post);
@@ -135,12 +146,12 @@ final class BlogController
      *    ),
      * )
      */
-    public function view(ViewPostRequest $request): Response
+    public function view(#[Route('id')] int $id): Response
     {
         return $this->responseFactory->createResponse(
             [
                 'post' => $this->postFormatter->format(
-                    $this->blogService->getPost($request->getId())
+                    $this->blogService->getPost($id)
                 ),
             ]
         );
@@ -208,10 +219,10 @@ final class BlogController
      *     )
      * )
      */
-    public function update(EditPostRequest $postRequest): Response
+    public function update(EditPostRequest $postRequest, #[Route('id')] int $id): Response
     {
         $post = $this->postBuilder->build(
-            $this->blogService->getPost($postRequest->getId()),
+            $this->blogService->getPost($id),
             $postRequest
         );
 
