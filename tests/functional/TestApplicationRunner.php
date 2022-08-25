@@ -36,7 +36,8 @@ final class TestApplicationRunner extends ApplicationRunner
         public ResponseGrabber $responseGrabber,
         string $rootPath,
         bool $debug,
-        ?string $environment
+        ?string $environment,
+        protected ?string $applicationEnvironment,
     ) {
         parent::__construct($rootPath, $debug, $environment);
         $this->bootstrapGroup = 'bootstrap-web';
@@ -114,7 +115,7 @@ final class TestApplicationRunner extends ApplicationRunner
         require_once $this->rootPath . '/autoload.php';
 
         $config = $this->getConfig();
-        $this->container = $this->getContainer($config, 'web');
+        $this->container = $this->getContainer($config, $this->applicationEnvironment);
 
         $this->runBootstrap($config, $this->container);
         $this->checkEvents($config, $this->container);
