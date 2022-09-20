@@ -10,6 +10,7 @@ class MockServiceProvider implements ServiceProviderInterface
 {
     private array $definitions = [];
     private array $extensions = [];
+
     public function getDefinitions(): array
     {
         return $this->definitions;
