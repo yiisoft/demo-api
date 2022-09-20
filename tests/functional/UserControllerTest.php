@@ -16,8 +16,7 @@ class UserControllerTest extends FunctionalTestCase
 
         $this->bootstrapApplication('web');
 
-        $container = $this->getTestContainer();
-        $container->set(VersionProvider::class, new VersionProvider('3.0.0'));
+        $this->mockService(VersionProvider::class, new VersionProvider('3.0.0'));
 
         $response = $this->doRequest($method, $url);
 

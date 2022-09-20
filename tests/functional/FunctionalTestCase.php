@@ -12,10 +12,16 @@ use RuntimeException;
 abstract class FunctionalTestCase extends TestCase
 {
     private static ?TestApplicationRunner $application = null;
+    private ?MockServiceProvider $mockServiceProvider = null;
 
     protected function tearDown(): void
     {
         self::$application = null;
+    }
+
+    public function mockService(string $id, mixed $definition): void
+    {
+        $this->mockServiceProvider->addDefinition($id, $definition);
     }
 
     protected function bootstrapApplication(string $applicationEnvironment = 'web'): void
@@ -28,6 +34,8 @@ abstract class FunctionalTestCase extends TestCase
                 null,
                 $applicationEnvironment
             );
+            $this->mockServiceProvider = new MockServiceProvider();
+            self::$application->addProviders([$this->mockServiceProvider]);
         }
     }
 

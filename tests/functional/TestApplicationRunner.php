@@ -12,15 +12,19 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 use Yiisoft\Config\ConfigInterface;
+use Yiisoft\Config\ConfigPaths;
 use Yiisoft\Definitions\Exception\CircularReferenceException;
 use Yiisoft\Definitions\Exception\InvalidConfigException;
 use Yiisoft\Definitions\Exception\NotInstantiableException;
 use Yiisoft\Di\CompositeContainer;
+use Yiisoft\Di\Container;
+use Yiisoft\Di\ContainerConfig;
 use Yiisoft\Di\NotFoundException;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
 use Yiisoft\Yii\Http\Application;
 use Yiisoft\Yii\Http\Handler\ThrowableHandler;
 use Yiisoft\Yii\Runner\ApplicationRunner;
+use Yiisoft\Yii\Runner\ConfigFactory;
 use Yiisoft\Yii\Runner\Http\Exception\HeadersHaveBeenSentException;
 use Yiisoft\Yii\Runner\Http\ServerRequestFactory;
 
@@ -29,6 +33,7 @@ final class TestApplicationRunner extends ApplicationRunner
     private array $requestParameters;
     public ?ContainerInterface $container = null;
     private TestContainer $testContainer;
+    private array $providers = [];
 
     /**
      * @param string $rootPath The absolute path to the project root.
@@ -136,5 +141,40 @@ final class TestApplicationRunner extends ApplicationRunner
     public function getTestContainer(): TestContainer
     {
         return $this->testContainer;
+    }
+
+    protected function createDefaultContainer(ConfigInterface $config, string $definitionEnvironment): Container
+    {
+        $containerConfig = ContainerConfig::create()->withValidate($this->debug);
+
+        if ($config->has($definitionEnvironment)) {
+            $containerConfig = $containerConfig->withDefinitions($config->get($definitionEnvironment));
+        }
+
+        if ($config->has("providers-$definitionEnvironment")) {
+            $containerConfig = $containerConfig->withProviders($config->get("providers-$definitionEnvironment"));
+        }
+
+        if ($this->providers !== []) {
+            $containerConfig = $containerConfig->withProviders($this->providers);
+        }
+
+        if ($config->has("delegates-$definitionEnvironment")) {
+            $containerConfig = $containerConfig->withDelegates($config->get("delegates-$definitionEnvironment"));
+        }
+
+        if ($config->has("tags-$definitionEnvironment")) {
+            $containerConfig = $containerConfig->withTags($config->get("tags-$definitionEnvironment"));
+        }
+
+        $containerConfig = $containerConfig->withDefinitions(
+            array_merge($containerConfig->getDefinitions(), [ConfigInterface::class => $config])
+        );
+
+        return new Container($containerConfig);
+    }
+    public function addProviders(array $providers)
+    {
+        $this->providers = array_merge($this->providers, $providers);
     }
 }
