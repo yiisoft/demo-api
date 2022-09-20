@@ -15,7 +15,6 @@ use Yiisoft\Config\ConfigInterface;
 use Yiisoft\Definitions\Exception\CircularReferenceException;
 use Yiisoft\Definitions\Exception\InvalidConfigException;
 use Yiisoft\Definitions\Exception\NotInstantiableException;
-use Yiisoft\Di\CompositeContainer;
 use Yiisoft\Di\Container;
 use Yiisoft\Di\ContainerConfig;
 use Yiisoft\Di\NotFoundException;
