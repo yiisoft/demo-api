@@ -58,13 +58,6 @@ abstract class FunctionalTestCase extends TestCase
         return self::$application->container;
     }
 
-    protected function getTestContainer(): TestContainer
-    {
-        $this->ensureApplicationLoaded();
-
-        return self::$application->getTestContainer();
-    }
-
     private function ensureApplicationLoaded(): void
     {
         if (self::$application === null) {

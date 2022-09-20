@@ -30,7 +30,6 @@ final class TestApplicationRunner extends ApplicationRunner
 {
     private array $requestParameters;
     public ?ContainerInterface $container = null;
-    private TestContainer $testContainer;
     private array $providers = [];
 
     /**
@@ -48,7 +47,6 @@ final class TestApplicationRunner extends ApplicationRunner
         parent::__construct($rootPath, $debug, $environment);
         $this->bootstrapGroup = 'bootstrap-web';
         $this->eventsGroup = 'events-web';
-        $this->testContainer = new TestContainer();
     }
 
     /**
@@ -128,19 +126,6 @@ final class TestApplicationRunner extends ApplicationRunner
         $this->checkEvents($config, $this->container);
     }
 
-    protected function getContainer(ConfigInterface $config, string $definitionEnvironment): ContainerInterface
-    {
-        $compositeContainer = new CompositeContainer();
-        $compositeContainer->attach($this->testContainer);
-        $compositeContainer->attach(parent::getContainer($config, $definitionEnvironment));
-        return $compositeContainer;
-    }
-
-    public function getTestContainer(): TestContainer
-    {
-        return $this->testContainer;
-    }
-
     protected function createDefaultContainer(ConfigInterface $config, string $definitionEnvironment): Container
     {
         $containerConfig = ContainerConfig::create()->withValidate($this->debug);
@@ -149,12 +134,18 @@ final class TestApplicationRunner extends ApplicationRunner
             $containerConfig = $containerConfig->withDefinitions($config->get($definitionEnvironment));
         }
 
+        $providers = [];
+
         if ($config->has("providers-$definitionEnvironment")) {
-            $containerConfig = $containerConfig->withProviders($config->get("providers-$definitionEnvironment"));
+            $providers = $config->get("providers-$definitionEnvironment");
         }
 
         if ($this->providers !== []) {
-            $containerConfig = $containerConfig->withProviders($this->providers);
+            $providers = array_merge($providers, $this->providers);
+        }
+
+        if ($providers !== []) {
+            $containerConfig = $containerConfig->withProviders($providers);
         }
 
         if ($config->has("delegates-$definitionEnvironment")) {
