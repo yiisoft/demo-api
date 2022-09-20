@@ -5,20 +5,28 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use App\VersionProvider;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-class UserControllerTest extends FunctionalTestCase
+class UserControllerTest extends TestCase
 {
+    private ?FunctionalTester $tester;
+
+    protected function setUp(): void
+    {
+        $this->tester = new FunctionalTester();
+    }
+
     public function testGet()
     {
         $method = 'GET';
         $url = '/';
 
-        $this->bootstrapApplication('web');
+        $this->tester->bootstrapApplication('web');
 
-        $this->mockService(VersionProvider::class, new VersionProvider('3.0.0'));
+        $this->tester->mockService(VersionProvider::class, new VersionProvider('3.0.0'));
 
-        $response = $this->doRequest($method, $url);
+        $response = $this->tester->doRequest($method, $url);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
@@ -37,8 +45,8 @@ class UserControllerTest extends FunctionalTestCase
         $method = 'GET';
         $url = '/';
 
-        $this->bootstrapApplication('web');
-        $response = $this->doRequest($method, $url);
+        $this->tester->bootstrapApplication('web');
+        $response = $this->tester->doRequest($method, $url);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
