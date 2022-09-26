@@ -16,7 +16,7 @@ class RouteTest extends FunctionalTestCase
         $method = 'GET';
         $url = '/';
 
-        $this->bootstrapApplication('web',dirname(__DIR__, 2));
+        $this->bootstrapApplication('web', dirname(__DIR__, 2));
         $response = $this->doRequest($method, $url);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
