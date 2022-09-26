@@ -7,6 +7,7 @@ namespace App\Tests\Functional;
 use App\VersionProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use Yiisoft\Yii\Testing\FunctionalTester;
 
 class UserControllerTest extends TestCase
 {
@@ -22,7 +23,7 @@ class UserControllerTest extends TestCase
         $method = 'GET';
         $url = '/';
 
-        $this->tester->bootstrapApplication('web');
+        $this->tester->bootstrapApplication('web', dirname(__DIR__, 2));
 
         $this->tester->mockService(VersionProvider::class, new VersionProvider('3.0.0'));
 
@@ -45,7 +46,7 @@ class UserControllerTest extends TestCase
         $method = 'GET';
         $url = '/';
 
-        $this->tester->bootstrapApplication('web');
+        $this->tester->bootstrapApplication('web', dirname(__DIR__, 2));
         $response = $this->tester->doRequest($method, $url);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);

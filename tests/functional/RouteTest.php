@@ -7,6 +7,7 @@ namespace App\Tests\Functional;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Yiisoft\Yii\Testing\FunctionalTestCase;
 
 class RouteTest extends FunctionalTestCase
 {
@@ -15,7 +16,7 @@ class RouteTest extends FunctionalTestCase
         $method = 'GET';
         $url = '/';
 
-        $this->bootstrapApplication('web');
+        $this->bootstrapApplication('web',dirname(__DIR__, 2));
         $response = $this->doRequest($method, $url);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -32,7 +33,7 @@ class RouteTest extends FunctionalTestCase
 
     public function testContainer()
     {
-        $this->bootstrapApplication('web');
+        $this->bootstrapApplication('web', dirname(__DIR__, 2));
         $container = $this->getContainer();
 
         $this->assertInstanceOf(ContainerInterface::class, $container);
