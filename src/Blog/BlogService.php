@@ -26,9 +26,7 @@ final class BlogService
     }
 
     /**
-     *
      * @throws NotFoundException
-     *
      */
     public function getPost(int $id): Post
     {
