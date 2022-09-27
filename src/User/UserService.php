@@ -15,28 +15,13 @@ use Yiisoft\Definitions\Exception\InvalidConfigException;
 
 final class UserService
 {
-    private IdentityRepositoryInterface $identityRepository;
-    private CurrentUser $currentUser;
-    private QueueFactoryInterface $queueFactory;
-
-    public function __construct(
-        CurrentUser $currentUser,
-        IdentityRepositoryInterface $identityRepository,
-        QueueFactoryInterface $queueFactory
-    ) {
-        $this->currentUser = $currentUser;
-        $this->identityRepository = $identityRepository;
-        $this->queueFactory = $queueFactory;
+    public function __construct(private CurrentUser $currentUser, private IdentityRepositoryInterface $identityRepository, private QueueFactoryInterface $queueFactory)
+    {
     }
 
     /**
-     * @param string $login
-     * @param string $password
-     *
      * @throws InvalidConfigException
      * @throws BadRequestException
-     *
-     * @return IdentityInterface
      */
     public function login(string $login, string $password): IdentityInterface
     {
