@@ -11,11 +11,9 @@ use Yiisoft\Data\Paginator\PaginatorInterface;
 final class BlogService
 {
     private const POSTS_PER_PAGE = 10;
-    private PostRepository $postRepository;
 
-    public function __construct(PostRepository $postRepository)
+    public function __construct(private PostRepository $postRepository)
     {
-        $this->postRepository = $postRepository;
     }
 
     public function getPosts(int $page): PaginatorInterface
@@ -28,11 +26,9 @@ final class BlogService
     }
 
     /**
-     * @param int $id
      *
      * @throws NotFoundException
      *
-     * @return Post
      */
     public function getPost(int $id): Post
     {

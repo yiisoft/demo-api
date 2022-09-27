@@ -29,24 +29,8 @@ use Yiisoft\RequestModel\Attribute\Route;
  */
 final class BlogController
 {
-    private DataResponseFactoryInterface $responseFactory;
-    private PostRepository $postRepository;
-    private PostFormatter $postFormatter;
-    private PostBuilder $postBuilder;
-    private BlogService $blogService;
-
-    public function __construct(
-        PostRepository $postRepository,
-        DataResponseFactoryInterface $responseFactory,
-        PostFormatter $postFormatter,
-        PostBuilder $postBuilder,
-        BlogService $blogService
-    ) {
-        $this->postRepository = $postRepository;
-        $this->responseFactory = $responseFactory;
-        $this->postFormatter = $postFormatter;
-        $this->postBuilder = $postBuilder;
-        $this->blogService = $blogService;
+    public function __construct(private PostRepository $postRepository, private DataResponseFactoryInterface $responseFactory, private PostFormatter $postFormatter, private PostBuilder $postBuilder, private BlogService $blogService)
+    {
     }
 
     /**
