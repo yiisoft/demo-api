@@ -21,6 +21,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.0",
+        "ext-intl": "*",
         "cebe/markdown": "^1.2@dev",
         "cycle/database": "^2.0",
         "cycle/entity-behavior": "^1.0",
