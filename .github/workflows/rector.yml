@@ -10,9 +10,6 @@ on:
       - 'infection.json.dist'
       - 'phpunit.xml.dist'
 
-  schedule:
-    - cron: '0 0 * * *'
-
 name: rector
 
 jobs:
@@ -46,7 +43,6 @@ jobs:
       - name: Install dependencies with composer
         run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
-      ## First run Rector without --dry-run, it would stop the process with exit 1 here
       - run: vendor/bin/rector process --ansi
 
       - name: Check for Rector modified files
@@ -66,3 +62,4 @@ jobs:
       - name: Push changes
         if: steps.rector-git-check.outputs.modified == 'true'
         run: git push
+
