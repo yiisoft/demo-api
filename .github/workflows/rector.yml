@@ -58,11 +58,10 @@ jobs:
         run: |
           git config --global user.name 'rector-bot'
           git config --global user.email 'rector@yiiframework.com'
-          echo $(git log -1 --pretty=format:"%s") > $COMMIT_MESSAGE
 
       - name: Commit Rector changes
         if: steps.rector-git-check.outputs.modified == 'true'
-        run: git commit -am "[rector] ${COMMIT_MESSAGE}"
+        run: git commit -am "[rector] Apply fixes"
 
       - name: Push changes
         if: steps.rector-git-check.outputs.modified == 'true'
