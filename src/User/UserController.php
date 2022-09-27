@@ -21,18 +21,8 @@ final class UserController
 {
     use RestControllerTrait;
 
-    private DataResponseFactoryInterface $responseFactory;
-    private UserRepository $userRepository;
-    private UserFormatter $userFormatter;
-
-    public function __construct(
-        DataResponseFactoryInterface $responseFactory,
-        UserRepository $userRepository,
-        UserFormatter $userFormatter
-    ) {
-        $this->responseFactory = $responseFactory;
-        $this->userRepository = $userRepository;
-        $this->userFormatter = $userFormatter;
+    public function __construct(private DataResponseFactoryInterface $responseFactory, private UserRepository $userRepository, private UserFormatter $userFormatter)
+    {
     }
 
     /**

@@ -11,11 +11,8 @@ use Yiisoft\Yii\Cycle\Data\Reader\EntityReader;
 
 final class PostRepository extends Select\Repository
 {
-    private ORMInterface $orm;
-
-    public function __construct(Select $select, ORMInterface $orm)
+    public function __construct(Select $select, private ORMInterface $orm)
     {
-        $this->orm = $orm;
         parent::__construct($select);
     }
 
