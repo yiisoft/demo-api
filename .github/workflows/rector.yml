@@ -1,15 +1,4 @@
 on:
-  pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - 'README.md'
-      - 'CHANGELOG.md'
-      - '.gitignore'
-      - '.env.example'
-      - '.gitattributes'
-      - 'infection.json.dist'
-      - 'phpunit.xml.dist'
-
   push:
     paths-ignore:
       - 'docs/**'
@@ -69,7 +58,7 @@ jobs:
         run: |
           git config --global user.name 'rector-bot'
           git config --global user.email 'rector@yiiframework.com'
-          echo ::set-env name=COMMIT_MESSAGE::$(git log -1 --pretty=format:"%s")
+          echo $(git log -1 --pretty=format:"%s") > $COMMIT_MESSAGE
 
       - name: Commit Rector changes
         if: steps.rector-git-check.outputs.modified == 'true'
