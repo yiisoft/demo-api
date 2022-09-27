@@ -20,10 +20,8 @@ final class UserService
     }
 
     /**
-     *
      * @throws InvalidConfigException
      * @throws BadRequestException
-     *
      */
     public function login(string $login, string $password): IdentityInterface
     {
