@@ -6,10 +6,9 @@ namespace App\Tests\Functional;
 
 use App\VersionProvider;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use Yiisoft\Yii\Testing\FunctionalTester;
 
-class UserControllerTest extends TestCase
+final class UserControllerTest extends TestCase
 {
     private ?FunctionalTester $tester;
 
@@ -18,7 +17,26 @@ class UserControllerTest extends TestCase
         $this->tester = new FunctionalTester();
     }
 
-    public function testGet()
+    public function testGetIndex()
+    {
+        $method = 'GET';
+        $url = '/';
+
+        $this->tester->bootstrapApplication('web', dirname(__DIR__, 2));
+        $response = $this->tester->doRequest($method, $url);
+
+        $this->assertEquals(
+            [
+                "status" => "success",
+                "error_message" => "",
+                "error_code" => null,
+                "data" => ["version" => "3.0", "author" => "yiisoft"],
+            ],
+            $response->getContentAsJson()
+        );
+    }
+
+    public function testGetIndexMockVersion()
     {
         $method = 'GET';
         $url = '/';
@@ -29,35 +47,14 @@ class UserControllerTest extends TestCase
 
         $response = $this->tester->doRequest($method, $url);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-
-        $stream = $response->getBody();
-        $stream->rewind();
-        $content = $stream->getContents();
-
-        $this->assertSame(
-            '{"status":"success","error_message":"","error_code":null,"data":{"version":"3.0.0","author":"yiisoft"}}',
-            $content
-        );
-    }
-
-    public function testGet2()
-    {
-        $method = 'GET';
-        $url = '/';
-
-        $this->tester->bootstrapApplication('web', dirname(__DIR__, 2));
-        $response = $this->tester->doRequest($method, $url);
-
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-
-        $stream = $response->getBody();
-        $stream->rewind();
-        $content = $stream->getContents();
-
-        $this->assertSame(
-            '{"status":"success","error_message":"","error_code":null,"data":{"version":"3.0","author":"yiisoft"}}',
-            $content
+        $this->assertEquals(
+            [
+                "status" => "success",
+                "error_message" => "",
+                "error_code" => null,
+                "data" => ["version" => "3.0.0", "author" => "yiisoft"],
+            ],
+            $response->getContentAsJson()
         );
     }
 }
