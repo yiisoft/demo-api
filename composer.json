@@ -88,7 +88,7 @@
         "yiisoft/json": "^1.0",
         "yiisoft/yii-debug-api": "^3.0@dev",
         "yiisoft/yii-debug-viewer": "^3.0@dev",
-        "yiisoft/yii-testing": "dev-response-accessor"
+        "yiisoft/yii-testing": "dev-master"
     },
     "autoload": {
         "psr-4": {
