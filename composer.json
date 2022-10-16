@@ -88,6 +88,7 @@
         "yiisoft/json": "^1.0",
         "yiisoft/yii-debug-api": "^3.0@dev",
         "yiisoft/yii-debug-viewer": "^3.0@dev",
+        "yiisoft/yii-gii": "dev-master",
         "yiisoft/yii-testing": "dev-master"
     },
     "autoload": {
