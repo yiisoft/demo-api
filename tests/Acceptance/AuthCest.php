@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance;
 
-use App\Tests\AcceptanceTester;
+use App\Tests\Support\AcceptanceTester;
 use Codeception\Util\HttpCode;
 use Yiisoft\Json\Json;
 
 final class AuthCest
 {
-    public function auth(AcceptanceTester $I): void
+    public function testAuth(AcceptanceTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST(
