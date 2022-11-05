@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Queue\LoggingAuthorizationHandler;
 use Cycle\Database\Config\SQLite\FileConnectionConfig;
 use Cycle\Database\Config\SQLiteDriverConfig;
+use Yiisoft\Definitions\Reference;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
 use Yiisoft\Router\Middleware\Router;
 use Yiisoft\Yii\Cycle\Command\Migration;
@@ -13,14 +14,22 @@ use Yiisoft\Yii\Cycle\Schema\Conveyor\AttributedSchemaConveyor;
 use Yiisoft\Yii\Cycle\Schema\Provider\FromConveyorSchemaProvider;
 use Yiisoft\Yii\Cycle\Schema\Provider\PhpFileSchemaProvider;
 use Yiisoft\Yii\Cycle\Schema\SchemaProviderInterface;
+use Yiisoft\Yii\Middleware\Locale;
 use Yiisoft\Yii\Middleware\SubFolder;
 use Yiisoft\Yii\Queue\Adapter\SynchronousAdapter;
 
 return [
+    'locale' => [
+        'locales' => ['en' => 'en-US', 'ru' => 'ru-RU'],
+        'ignoredRequests' => [
+            '/debug**',
+        ],
+    ],
     'supportEmail' => 'support@example.com',
     'middlewares' => [
         ErrorCatcher::class,
         SubFolder::class,
+        Locale::class,
         Router::class,
     ],
 
@@ -44,6 +53,17 @@ return [
 
     'yiisoft/router-fastroute' => [
         'enableCache' => false,
+    ],
+
+    'yiisoft/translator' => [
+        'locale' => 'en',
+        'fallbackLocale' => 'en',
+        'defaultCategory' => 'app',
+        'categorySources' => [
+            // You can add categories from your application and additional modules using `Reference::to` below
+            // Reference::to(ApplicationCategorySource::class),
+            Reference::to('translation.app'),
+        ],
     ],
 
     // Console commands

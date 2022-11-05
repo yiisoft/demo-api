@@ -19,7 +19,11 @@ return [
             ->middleware(FormatDataResponse::class)
             ->middleware(ExceptionMiddleware::class)
             ->middleware(RequestBodyParser::class)
-            ->addGroup(Group::create()->routes(...$config->get('routes')));
+            ->addGroup(
+//                Group::create()
+                Group::create('/{_language}')
+                    ->routes(...$config->get('routes'))
+            );
 
         return new RouteCollection($collector);
     },
