@@ -20,7 +20,6 @@ return [
             ->middleware(ExceptionMiddleware::class)
             ->middleware(RequestBodyParser::class)
             ->addGroup(
-//                Group::create()
                 Group::create('/{_language}')
                     ->routes(...$config->get('routes'))
             );
