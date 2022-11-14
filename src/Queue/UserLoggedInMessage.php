@@ -4,12 +4,24 @@ declare(strict_types=1);
 
 namespace App\Queue;
 
-use Yiisoft\Yii\Queue\Message\AbstractMessage;
+use Yiisoft\Yii\Queue\Message\MessageInterface;
 
-final class UserLoggedInMessage extends AbstractMessage
+final class UserLoggedInMessage implements MessageInterface
 {
+    private ?string $id = null;
+
     public function __construct(private string $userId, private int $time)
     {
+    }
+
+    public function setId(?string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): ?string
+    {
+        return $this->id;
     }
 
     public function getHandlerName(): string
