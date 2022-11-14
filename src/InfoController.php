@@ -13,6 +13,10 @@ use OpenApi\Annotations as OA;
  */
 class InfoController
 {
+    public function __construct(private VersionProvider $versionProvider)
+    {
+    }
+
     /**
      * @OA\Get(
      *     path="/",
@@ -47,6 +51,6 @@ class InfoController
      */
     public function index(DataResponseFactoryInterface $responseFactory): ResponseInterface
     {
-        return $responseFactory->createResponse(['version' => '3.0', 'author' => 'yiisoft']);
+        return $responseFactory->createResponse(['version' => $this->versionProvider->version, 'author' => 'yiisoft']);
     }
 }

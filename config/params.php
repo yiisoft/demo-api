@@ -3,20 +3,32 @@
 declare(strict_types=1);
 
 use App\Queue\LoggingAuthorizationHandler;
+use Cycle\Database\Config\SQLite\FileConnectionConfig;
+use Cycle\Database\Config\SQLiteDriverConfig;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
 use Yiisoft\Router\Middleware\Router;
 use Yiisoft\Yii\Cycle\Command\Migration;
 use Yiisoft\Yii\Cycle\Command\Schema;
 use Yiisoft\Yii\Cycle\Schema\Conveyor\AttributedSchemaConveyor;
+use Yiisoft\Yii\Cycle\Schema\Provider\FromConveyorSchemaProvider;
+use Yiisoft\Yii\Cycle\Schema\Provider\PhpFileSchemaProvider;
 use Yiisoft\Yii\Cycle\Schema\SchemaProviderInterface;
+use Yiisoft\Yii\Middleware\Locale;
 use Yiisoft\Yii\Middleware\SubFolder;
 use Yiisoft\Yii\Queue\Adapter\SynchronousAdapter;
 
 return [
+    'locale' => [
+        'locales' => ['en' => 'en-US', 'ru' => 'ru-RU'],
+        'ignoredRequests' => [
+            '/debug**',
+        ],
+    ],
     'supportEmail' => 'support@example.com',
     'middlewares' => [
         ErrorCatcher::class,
         SubFolder::class,
+        Locale::class,
         Router::class,
     ],
 
@@ -40,6 +52,12 @@ return [
 
     'yiisoft/router-fastroute' => [
         'enableCache' => false,
+    ],
+
+    'yiisoft/translator' => [
+        'locale' => 'en',
+        'fallbackLocale' => 'en',
+        'defaultCategory' => 'app',
     ],
 
     // Console commands
@@ -70,12 +88,8 @@ return [
                 'default' => ['connection' => 'sqlite'],
             ],
             'connections' => [
-                'sqlite' => new \Cycle\Database\Config\SQLiteDriverConfig(
-                    connection: new \Cycle\Database\Config\SQLite\FileConnectionConfig(
-                        database: $_ENV['YII_ENV'] === 'production'
-                            ? dirname(__DIR__) . '/runtime/database.db'
-                            : dirname(__DIR__) . '/tests/_data/database.db'
-                    )
+                'sqlite' => new SQLiteDriverConfig(
+                    new FileConnectionConfig(dirname(__DIR__) . '/runtime/database.db')
                 ),
             ],
         ],
@@ -111,12 +125,12 @@ return [
             // \Yiisoft\Yii\Cycle\Schema\Provider\SimpleCacheSchemaProvider::class => ['key' => 'cycle-orm-cache-key'],
 
             // Store generated Schema in the file
-            \Yiisoft\Yii\Cycle\Schema\Provider\PhpFileSchemaProvider::class => [
-                'mode' => \Yiisoft\Yii\Cycle\Schema\Provider\PhpFileSchemaProvider::MODE_WRITE_ONLY,
+            PhpFileSchemaProvider::class => [
+                'mode' => PhpFileSchemaProvider::MODE_WRITE_ONLY,
                 'file' => '@runtime/schema.php',
             ],
 
-            \Yiisoft\Yii\Cycle\Schema\Provider\FromConveyorSchemaProvider::class => [
+            FromConveyorSchemaProvider::class => [
                 'generators' => [
                     Cycle\Schema\Generator\SyncTables::class, // sync table changes to database
                 ],

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance;
 
-use App\Tests\AcceptanceTester;
+use App\Tests\Support\AcceptanceTester;
 use Codeception\Util\HttpCode;
 
 final class BlogCest
@@ -66,7 +66,7 @@ final class BlogCest
         $I->seeResponseContainsJson(
             [
                 'status' => 'failed',
-                'error_message' => 'Value cannot be blank.',
+                'error_message' => 'Value not passed.',
                 'error_code' => 400,
                 'data' => null,
             ]
