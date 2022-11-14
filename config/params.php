@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Queue\LoggingAuthorizationHandler;
 use Cycle\Database\Config\SQLite\FileConnectionConfig;
 use Cycle\Database\Config\SQLiteDriverConfig;
-use Yiisoft\Definitions\Reference;
 use Yiisoft\ErrorHandler\Middleware\ErrorCatcher;
 use Yiisoft\Router\Middleware\Router;
 use Yiisoft\Yii\Cycle\Command\Migration;
@@ -59,11 +58,6 @@ return [
         'locale' => 'en',
         'fallbackLocale' => 'en',
         'defaultCategory' => 'app',
-        'categorySources' => [
-            // You can add categories from your application and additional modules using `Reference::to` below
-            // Reference::to(ApplicationCategorySource::class),
-            Reference::to('translation.app'),
-        ],
     ],
 
     // Console commands
